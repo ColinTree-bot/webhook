@@ -36,11 +36,6 @@ module.exports.start = function() {
         cmd = [ cmd ];
       }
       exec(cmd.join(" && "), function(err, out, code) {
-        if (err instanceof Error) {
-          response.writeHead(500);
-          response.end("Server Internal Error.");
-          throw err;
-        }
         process.stderr.write(err.toString());
         process.stdout.write(out.toString());
       });
