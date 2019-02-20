@@ -43,9 +43,9 @@ module.exports.start = function() {
         }
         process.stderr.write(err.toString());
         process.stdout.write(out.toString());
-        response.writeHead(200);
-        response.end("Deploy Done.");
       });
+      response.writeHead(200);
+      response.end("Deploy Started.");
     } else {
       response.writeHead(404);
       response.end("Not found");
