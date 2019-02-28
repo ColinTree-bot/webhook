@@ -37,11 +37,11 @@ module.exports.start = function() {
   let deployServer = http.createServer(function(request, response) {
     let content = "";
 
-    req.on('data', function(chunk) {
+    request.on('data', function(chunk) {
       content += chunk;
     });
 
-    req.on('end', function() {
+    request.on('end', function() {
       let inCMDs = false;
       let cmd = "";
       for (let key in cmds) {
