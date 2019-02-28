@@ -6,7 +6,14 @@ const cmds = {
   "/webhook": [
     "cd /var/bot/webhook",
     "git pull",
+    "npm i",
     "pm2 restart bot_webhook"
+  ],
+  "/web-interface": [
+    "cd /var/www",
+    "git pull",
+    "npm i",
+    "pm2 restart www"
   ],
   "/extension-builder": function(requestJson) {
     let targetBranch = requestJson.ref.replace("refs/heads/", "");
