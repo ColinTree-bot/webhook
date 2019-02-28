@@ -17,7 +17,7 @@ const cmds = {
         "docker stop extension-builder-dev",
         "docker rm extension-builder-dev",
         "docker build . -t extension-builder-dev",
-        "docker run -d -p 8049:8048 extension-builder-dev"
+        "docker run -d -p 8049:8048 --name=\"extension-builder-dev\" extension-builder-dev"
       ]
     }
   },
