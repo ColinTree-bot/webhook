@@ -12,9 +12,11 @@ const cmds = {
     let targetBranch = requestJson.ref.replace("refs/heads/", "");
     if (targetBranch == "dev") {
       return [
+        "cd /var/extension-builder/dev",
+        "git pull",
         "docker stop extension-builder-dev",
         "docker rm extension-builder-dev",
-        "docker build /var/extension-builder/dev/ -t extension-builder-dev",
+        "docker build . -t extension-builder-dev",
         "docker run -d -p 8049:8048 extension-builder-dev"
       ]
     }
