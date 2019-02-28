@@ -8,6 +8,17 @@ const cmds = {
     "git pull",
     "pm2 restart bot_webhook"
   ],
+  "/extension-builder": function(requestJson) {
+    let targetBranch = requestJson.ref.replace("refs/heads/", "");
+    if (targetBranch == "dev") {
+      return [
+        "docker stop extension-builder-dev",
+        "docker rm extension-builder-dev",
+        "docker build /var/extension-builder/dev/ -t extension-builder-dev",
+        "docker run -d -p 8049:8048 extension-builder-dev"
+      ]
+    }
+  },
   "/mit-cml/appinventor-sources": [
     "cd /var/mit-cml/appinventor-sources",
     "git checkout master",
@@ -22,29 +33,40 @@ const cmds = {
 module.exports.cmds = cmds;
 module.exports.start = function() {
   let deployServer = http.createServer(function(request, response) {
-    let inCMDs = false;
-    let cmd = "";
-    for (let key in cmds) {
-      if (key == request.url) {
-        inCMDs = true;
-        cmd = cmds[key];
-        break;
+    let content = "";
+
+    req.on('data', function(chunk) {
+      content += chunk;
+    });
+
+    req.on('end', function() {
+      let inCMDs = false;
+      let cmd = "";
+      for (let key in cmds) {
+        if (key == request.url) {
+          inCMDs = true;
+          cmd = cmds[key];
+          break;
+        }
       }
-    }
-    if (inCMDs) {
-      if (typeof(cmd) == "string") {
-        cmd = [ cmd ];
+      if (inCMDs) {
+        if (typeof(cmd) == "function") {
+          cmd = cmd(JSON.parse(content));
+        }
+        if (typeof(cmd) == "string") {
+          cmd = [ cmd ];
+        }
+        exec(cmd.join(" && "), function(err, out, code) {
+          process.stderr.write(err.toString());
+          process.stdout.write(out.toString());
+        });
+        response.writeHead(200);
+        response.end("Deploy Started.");
+      } else {
+        response.writeHead(404);
+        response.end("Not found");
       }
-      exec(cmd.join(" && "), function(err, out, code) {
-        process.stderr.write(err.toString());
-        process.stdout.write(out.toString());
-      });
-      response.writeHead(200);
-      response.end("Deploy Started.");
-    } else {
-      response.writeHead(404);
-      response.end("Not found");
-    }
+    });
   });
   console.log("listening port at: " + PORT);
   deployServer.listen(PORT);
