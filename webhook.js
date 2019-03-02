@@ -17,15 +17,25 @@ const cmds = {
   ],
   "/extension-builder": function(requestJson) {
     let targetBranch = requestJson.ref.replace("refs/heads/", "");
-    if (targetBranch == "dev") {
-      return [
-        "cd /var/extension-builder/dev",
-        "git pull",
-        "docker stop extension-builder-dev",
-        "docker rm extension-builder-dev",
-        "docker build . -t extension-builder-dev",
-        "docker run -d -p 8049:8048 --name=\"extension-builder-dev\" extension-builder-dev"
-      ]
+    switch (targetBranch) {
+      case "master":
+        return [
+          "cd /var/extension-builder/master",
+          "git pull",
+          "docker stop extension-builder",
+          "docker rm extension-builder",
+          "docker build . -t extension-builder",
+          "docker run -d --name=\"extension-builder\" extension-builder"
+        ];
+      case "dev":
+        return [
+          "cd /var/extension-builder/dev",
+          "git pull",
+          "docker stop extension-builder-dev",
+          "docker rm extension-builder-dev",
+          "docker build . -t extension-builder-dev",
+          "docker run -d -p 8049:8048 --name=\"extension-builder-dev\" extension-builder-dev"
+        ];
     }
   },
   "/mit-cml/appinventor-sources": [
