@@ -8,6 +8,6 @@ schedule.schedule({
   name: "syncAppinventorSources",
   rule: { minute: 0 },
   callback() {
-    exec(webhook.cmds["/mit-cml/appinventor-sources"].join(" && "));
+    exec(webhook.cmds["/mit-cml/appinventor-sources"].join(" && "), { silent: true });
   }
 });
