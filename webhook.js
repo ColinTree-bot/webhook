@@ -50,7 +50,7 @@ const cmds = {
           "docker rm lvg",
           "docker create --name lvg lvg",
           "cd /var/ListViewGenerator/gh-pages",
-          "find . -maxdepth 1 ! -name '.' ! -name '..' ! -name '.git' ! -name 'CNAME' -exec rm -rf {} \;",
+          "find . -maxdepth 1 ! -name '.' ! -name '..' ! -name '.git' ! -name 'CNAME' -exec rm -rf {} \\;",
           "docker cp lvg:/usr/app/dist .",
           "mv dist/* .",
           "rm -rf dist",
