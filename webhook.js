@@ -45,7 +45,7 @@ const cmds = {
         return [
           "cd /var/ListViewGenerator/src/",
           "git pull",
-          "docker build -t lvg",
+          "docker build -t lvg .",
           "docker create --name lvg lvg",
           "cd ../gh-pages",
           "find . -not -name '.git' -not -name 'CNAME' -delete",
