@@ -49,9 +49,11 @@ const cmds = {
           "docker stop lvg",
           "docker rm lvg",
           "docker create --name lvg lvg",
-          "cd ../gh-pages",
+          "cd /var/ListViewGenerator/gh-pages",
           "find . -not -name '.git' -not -name 'CNAME' -delete",
           "docker cp lvg:/usr/app/dist .",
+          "mv dist/* .",
+          "rm -rf dist",
           "git commit -am \"Auto-build by webhook: " + requestJson.after + "\"",
           "git push"
         ];
