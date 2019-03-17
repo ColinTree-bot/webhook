@@ -96,7 +96,8 @@ module.exports.start = function() {
         if (typeof(cmd) == "string") {
           cmd = [ cmd ];
         }
-        exec(cmd.join(" && "), function(err, out, code) {
+        cmd = (cmd != undefined && Array.isArray(cmd)) ? cmd.join(" && ") : "echo ignoring wrong format of command";
+        exec(cmd, function(err, out, code) {
           process.stderr.write(err.toString());
           process.stdout.write(out.toString());
         });
