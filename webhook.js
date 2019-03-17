@@ -38,6 +38,23 @@ const cmds = {
         ];
     }
   },
+  "ListViewGenerator": function(requestJson) {
+    let targetBranch = requestJson.ref.replace("refs/heads/", "");
+    switch (targetBranch) {
+      case "master":
+        return [
+          "cd /var/ListViewGenerator/src/",
+          "git pull",
+          "docker build -t lvg",
+          "docker create --name lvg lvg",
+          "cd ../gh-pages",
+          "find . -not -name '.git' -not -name 'CNAME' -delete",
+          "docker cp lvg:/usr/app/dist .",
+          "git commit -am \"Auto-build by webhook: " + requestJson.after + "\"",
+          "git push"
+        ];
+    }
+  },
   "/mit-cml/appinventor-sources": [
     "cd /var/mit-cml/appinventor-sources",
     "git checkout master",
