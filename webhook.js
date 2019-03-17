@@ -54,7 +54,8 @@ const cmds = {
           "docker cp lvg:/usr/app/dist .",
           "mv dist/* .",
           "rm -rf dist",
-          "git commit -am \"Auto-build by webhook: " + requestJson.after + "\"",
+          "git add . --all",
+          "git commit -m \"Auto-build by webhook: " + requestJson.after + "\"",
           "git push"
         ];
     }
