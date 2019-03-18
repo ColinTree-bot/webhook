@@ -36,6 +36,8 @@ const cmds = {
           "docker build . -t extension-builder-dev",
           "docker run -d -p 8049:8048 --name=\"extension-builder-dev\" extension-builder-dev"
         ];
+      default:
+        return "echo branch not accepted";
     }
   },
   "/ListViewGenerator": function(requestJson) {
@@ -58,6 +60,8 @@ const cmds = {
           "git commit -m \"Auto-build by webhook: " + requestJson.after + "\"",
           "git push"
         ];
+      default:
+        return "echo branch not accepted";
     }
   },
   "/mit-cml/appinventor-sources": [
