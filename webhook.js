@@ -25,7 +25,7 @@ const cmds = {
           "docker stop extension-builder",
           "docker rm extension-builder",
           "docker build . -t extension-builder",
-          "docker run -d -p 8048:8048 --name=\"extension-builder\" extension-builder"
+          "docker run -d -p 8048:8048 --restart unless-stopped --name=\"extension-builder\" extension-builder"
         ];
       case "dev":
         return [
@@ -34,7 +34,7 @@ const cmds = {
           "docker stop extension-builder-dev",
           "docker rm extension-builder-dev",
           "docker build . -t extension-builder-dev",
-          "docker run -d -p 8049:8048 --name=\"extension-builder-dev\" extension-builder-dev"
+          "docker run -d -p 8049:8048 --restart unless-stopped --name=\"extension-builder-dev\" extension-builder-dev"
         ];
       default:
         return "echo branch not accepted";
