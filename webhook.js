@@ -112,7 +112,13 @@ module.exports.start = function() {
       }
       if (inCMDs) {
         if (typeof(cmd) == "function") {
-          cmd = cmd(JSON.parse(content));
+          try {
+            cmd = cmd(JSON.parse(content));
+          } catch (e) {
+            response.writeHead(500);
+            response.end("Internal Error: " + e);
+            return;
+          }
         }
         if (typeof(cmd) == "string") {
           cmd = [ cmd ];
