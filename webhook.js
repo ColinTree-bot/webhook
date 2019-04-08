@@ -72,11 +72,14 @@ const cmds = {
     switch (targetBranch) {
       case "master":
         return [
-          "cd /var/aix_colintree_cn/",
+          "cd /var/aix_colintree_cn/src",
           "git pull",
-          "gitbook install src",
-          "gitbook build src docs",
-          "git add docs --all",
+          "gitbook install",
+          "gitbook build",
+          "cd ../gh-pages",
+          "find . -maxdepth 1 ! -name '.' ! -name '..' ! -name '.git' -exec rm -rf {} \\;",
+          "mv ../src/_book/* .",
+          "git add . --all",
           "git commit -m \"Auto-build by webhook: " + requestJson.after + "\"",
           "git push"
         ];
