@@ -77,6 +77,7 @@ const cmds = {
           "gitbook install",
           "gitbook build",
           "cd ../gh-pages",
+          "git pull", // ensure no commit conflict
           "find . -maxdepth 1 ! -name '.' ! -name '..' ! -name '.git' -exec rm -rf {} \\;",
           "mv ../src/_book/* .",
           "git add . --all",
