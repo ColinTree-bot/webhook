@@ -105,16 +105,14 @@ module.exports.start = function() {
     });
 
     request.on('end', function() {
-      let inCMDs = false;
-      let cmd = "";
+      let cmd = null;
       for (let key in cmds) {
         if (key == request.url) {
-          inCMDs = true;
           cmd = cmds[key];
           break;
         }
       }
-      if (inCMDs) {
+      if (cmd != null) {
         if (typeof(cmd) == "function") {
           try {
             cmd = cmd(JSON.parse(content));
