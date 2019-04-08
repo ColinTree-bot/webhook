@@ -71,6 +71,7 @@ const cmds = {
         return [
           "cd /var/aix_colintree_cn/",
           "git pull",
+          "gitbook install src",
           "gitbook build src docs",
           "git add docs --all",
           "git commit -m \"Auto-build by webhook: " + requestJson.after + "\"",
