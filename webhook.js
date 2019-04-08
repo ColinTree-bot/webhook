@@ -64,6 +64,22 @@ const cmds = {
         return "echo branch not accepted";
     }
   },
+  "/aix_colintree_cn": function(requestJson) {
+    let targetBranch = requestJson.ref.replace("refs/heads/", "");
+    switch (targetBranch) {
+      case "master":
+        return [
+          "cd /var/aix_colintree_cn/",
+          "git pull",
+          "gitbook build src docs",
+          "git add docs --all",
+          "git commit -m \"Auto-build by webhook: " + requestJson.after + "\"",
+          "git push"
+        ];
+      default:
+        return "echo branch not accepted";
+    }
+  },
   "/mit-cml/appinventor-sources": [
     "cd /var/mit-cml/appinventor-sources",
     "git checkout master",
