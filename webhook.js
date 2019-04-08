@@ -65,6 +65,9 @@ const cmds = {
     }
   },
   "/aix_colintree_cn": function(requestJson) {
+    if (requestJson.sender.login == "ColinTree-bot") {
+      throw "Ignore commit since it is commited by this bot";
+    }
     let targetBranch = requestJson.ref.replace("refs/heads/", "");
     switch (targetBranch) {
       case "master":
