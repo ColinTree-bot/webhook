@@ -88,12 +88,12 @@ const cmds = {
         return "echo branch not accepted";
     }
   },
-  "/tinywebdb-sae-php": function(requestJson) {
+  "/tinywebdb-php-vue": function(requestJson) {
     let targetBranch = requestJson.ref.replace("refs/heads/", "");
     switch (targetBranch) {
       case "master":
         return [
-          "cd /var/tinywebdb-sae-php/1",
+          "cd /var/tinywebdb-php-vue/1",
           "git fetch origin",
           "git pull",
           "git merge origin/master",
