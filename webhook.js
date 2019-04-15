@@ -88,6 +88,21 @@ const cmds = {
         return "echo branch not accepted";
     }
   },
+  "/tinywebdb-sae-php": function(requestJson) {
+    let targetBranch = requestJson.ref.replace("refs/heads/", "");
+    switch (targetBranch) {
+      case "master":
+        return [
+          "cd /var/tinywebdb-sae-php/1",
+          "git fetch origin",
+          "git pull",
+          "git merge origin/master",
+          "git push"
+        ];
+      default:
+        return "echo branch not accepted";
+    }
+  },
   "/mit-cml/appinventor-sources": [
     "cd /var/mit-cml/appinventor-sources",
     "git checkout master",
