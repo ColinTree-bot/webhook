@@ -100,6 +100,16 @@ const cmds = {
           "git merge origin/master",
           "git push"
         ];
+      case "dev":
+        return [
+          "cd /var/tinywebdb-php-vue/dev",
+          "git pull",
+          "docker build -t tpv-dev .",
+          "docker create --name tpv_temp_container tpv-dev",
+          "docker cp tpv_temp_container:/usr/app/dist.tar.gz .",
+          "docker rm tpv_temp_container",
+          `github-release upload --owner ColinTree --repo tinywebdb-php-vue --tag \"0.0.0\" ${Date.now()}.${requestJson.after}.tar.gz`
+        ];
       default:
         return "echo branch not accepted";
     }
