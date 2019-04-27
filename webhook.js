@@ -93,19 +93,12 @@ const cmds = {
     let targetBranch = requestJson.ref.replace("refs/heads/", "");
     switch (targetBranch) {
       case "master":
-        return [
-          "cd /var/tinywebdb-php-vue/1",
-          "git fetch origin",
-          "git pull",
-          "git merge origin/master",
-          "git push"
-        ];
       case "dev":
         return [
-          "cd /var/tinywebdb-php-vue/dev",
+          "cd /var/tinywebdb-php-vue/" + targetBranch,
           "git pull",
-          "docker build -t tpv-dev .",
-          "docker create --name tpv_temp_container tpv-dev",
+          "docker build -t tpv-" + targetBranch + " .",
+          "docker create --name tpv_temp_container tpv-" + targetBranch,
           "docker cp tpv_temp_container:/usr/app/dist.tar.gz .",
           "docker rm tpv_temp_container",
           "github-release upload --owner ColinTree --repo tinywebdb-php-vue --tag \"0.0.0\" dist.tar.gz"
