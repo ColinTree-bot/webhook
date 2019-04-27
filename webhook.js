@@ -1,5 +1,6 @@
 let http = require("http");
 let exec = require("shelljs").exec;
+let fs = require("fs");
 
 const PORT = 6474;
 const cmds = {
@@ -143,6 +144,14 @@ module.exports.start = function() {
         }
         if (typeof(cmd) == "string") {
           cmd = [ cmd ];
+        }
+        if (fs.existsSync("config.json")) {
+          let json = JSON.parse(fs.readFileSync("config.json"));
+          if (json.env) {
+            for (let name in json.env) {
+              cmd.unshift("export " + name + "=" + json.env[name]);
+            }
+          }
         }
         cmd = (cmd != undefined && Array.isArray(cmd)) ? cmd.join(" && ") : "echo ignoring wrong format of command";
         exec(cmd, function(err, out, code) {
