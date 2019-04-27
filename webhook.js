@@ -108,7 +108,7 @@ const cmds = {
           "docker create --name tpv_temp_container tpv-dev",
           "docker cp tpv_temp_container:/usr/app/dist.tar.gz .",
           "docker rm tpv_temp_container",
-          `github-release upload --owner ColinTree --repo tinywebdb-php-vue --tag \"0.0.0\" ${Date.now()}.${requestJson.after}.tar.gz`
+          "github-release upload --owner ColinTree --repo tinywebdb-php-vue --tag \"0.0.0\" dist.tar.gz"
         ];
       default:
         return "echo branch not accepted";
@@ -165,8 +165,8 @@ module.exports.start = function() {
         }
         cmd = (cmd != undefined && Array.isArray(cmd)) ? cmd.join(" && ") : "echo ignoring wrong format of command";
         exec(cmd, function(err, out, code) {
-          process.stderr.write(err.toString());
-          process.stdout.write(out.toString());
+          // process.stderr.write(err.toString());
+          // process.stdout.write(out.toString());
         });
         response.writeHead(200);
         response.end("Deploy Started.");
