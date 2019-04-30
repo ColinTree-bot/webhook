@@ -101,7 +101,10 @@ const cmds = {
           "docker create --name tpv_temp_container tpv-" + targetBranch,
           "docker cp tpv_temp_container:/usr/app/dist.tar.gz .",
           "docker rm tpv_temp_container",
-          "github-release upload --owner ColinTree --repo tinywebdb-php-vue --tag \"0.0.0\" dist.tar.gz"
+          // require `npm i -g tar-to-zip`
+          "tar2zip dist.tar.gz",
+          // require `npm i -g github-release-cli`
+          "github-release upload --owner ColinTree --repo tinywebdb-php-vue --tag \"0.0.0\" dist.tar.gz dist.zip"
         ];
       default:
         return "echo branch not accepted";
