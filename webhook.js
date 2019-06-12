@@ -97,6 +97,7 @@ const cmds = {
         return [
           "cd /var/tinywebdb-php-vue/" + targetBranch,
           "git pull",
+          "git submodule update --init",
           "docker build -t tpv-" + targetBranch + " .",
           "docker create --name tpv_temp_container tpv-" + targetBranch,
           "docker cp tpv_temp_container:/usr/app/dist.tar.gz .",
