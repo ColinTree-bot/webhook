@@ -93,8 +93,9 @@ const cmds = {
     if (requestJson.ref.startsWith("refs/tags/")) {
       let targetTag = requestJson.ref.replace("refs/tags/", "");
       return [
-        "cd /var/tinywebdb-php-vue/" + targetTag,
+        "cd /var/tinywebdb-php-vue/master",
         "git pull",
+        "git checkout " + targetTag,
         "git submodule update --init",
         "docker build -t tpv-" + targetTag + " .",
         "docker create --name tpv_temp_container tpv-" + targetTag,
