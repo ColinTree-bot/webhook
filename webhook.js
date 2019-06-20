@@ -90,6 +90,9 @@ const cmds = {
     }
   },
   "/tinywebdb-php-vue/release": function(requestJson) {
+    if (requestJson.action === 'deleted') {
+      return 'echo ignore delete deletion';
+    }
     let targetTag = requestJson.release.tag_name;
     return [
       "cd /var/tinywebdb-php-vue/master",
