@@ -91,7 +91,7 @@ const cmds = {
   },
   "/tinywebdb-php-vue/release": function(requestJson) {
     if (requestJson.action === 'deleted') {
-      return 'echo ignore delete deletion';
+      return 'echo [TPV-release] ignore tag deletion';
     }
     let targetTag = requestJson.release.tag_name;
     return [
