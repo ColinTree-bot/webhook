@@ -93,7 +93,7 @@ const cmds = {
     let targetTag = requestJson.release.tag_name;
     return [
       "cd /var/tinywebdb-php-vue/master",
-      "git pull",
+      "git fetch",
       "git checkout " + targetTag,
       "git submodule update --init",
       "docker build -t tpv-" + targetTag + " .",
