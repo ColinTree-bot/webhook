@@ -89,26 +89,22 @@ const cmds = {
         return "echo branch not accepted";
     }
   },
-  "/tinywebdb-php-vue": function(requestJson) {
-    if (requestJson.ref.startsWith("refs/tags/")) {
-      let targetTag = requestJson.ref.replace("refs/tags/", "");
-      return [
-        "cd /var/tinywebdb-php-vue/master",
-        "git pull",
-        "git checkout " + targetTag,
-        "git submodule update --init",
-        "docker build -t tpv-" + targetTag + " .",
-        "docker create --name tpv_temp_container tpv-" + targetTag,
-        "docker cp tpv_temp_container:/usr/app/dist.tar.gz .",
-        "docker rm tpv_temp_container",
-        // require `npm i -g tar-to-zip`
-        "tar2zip dist.tar.gz",
-        // require `npm i -g github-release-cli`
-        "github-release upload --owner ColinTree --repo tinywebdb-php-vue --tag \"" + targetTag + "\" dist.tar.gz dist.zip"
-      ];
-    } else {
-      return "echo ref not accepted: not a tag";
-    }
+  "/tinywebdb-php-vue/release": function(requestJson) {
+    let targetTag = requestJson.release.tag_name;
+    return [
+      "cd /var/tinywebdb-php-vue/master",
+      "git pull",
+      "git checkout " + targetTag,
+      "git submodule update --init",
+      "docker build -t tpv-" + targetTag + " .",
+      "docker create --name tpv_temp_container tpv-" + targetTag,
+      "docker cp tpv_temp_container:/usr/app/dist.tar.gz .",
+      "docker rm tpv_temp_container",
+      // require `npm i -g tar-to-zip`
+      "tar2zip dist.tar.gz",
+      // require `npm i -g github-release-cli`
+      "github-release upload --owner ColinTree --repo tinywebdb-php-vue --tag \"" + targetTag + "\" dist.tar.gz dist.zip"
+    ];
   },
   "/mit-cml/appinventor-sources": [
     "cd /var/mit-cml/appinventor-sources",
