@@ -44,7 +44,7 @@ const cmds = {
   "/ListViewGenerator": function(requestJson) {
     let targetBranch = requestJson.ref.replace("refs/heads/", "");
     switch (targetBranch) {
-      case "master":
+      case "vue-ts":
         return [
           "cd /var/ListViewGenerator/src/",
           "git pull",
