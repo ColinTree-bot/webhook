@@ -23,8 +23,8 @@ const cmds = {
         return [
           "cd /var/extension-builder/master",
           "git pull",
-          "docker stop extension-builder",
-          "docker rm extension-builder",
+          "docker stop extension-builder || true",
+          "docker rm extension-builder || true",
           "docker build . -t extension-builder",
           "docker run -d -p 8048:8048 --restart unless-stopped --name=\"extension-builder\" extension-builder"
         ];
@@ -32,8 +32,8 @@ const cmds = {
         return [
           "cd /var/extension-builder/dev",
           "git pull",
-          "docker stop extension-builder-dev",
-          "docker rm extension-builder-dev",
+          "docker stop extension-builder-dev || true",
+          "docker rm extension-builder-dev || true",
           "docker build . -t extension-builder-dev",
           "docker run -d -p 8049:8048 --restart unless-stopped --name=\"extension-builder-dev\" extension-builder-dev"
         ];
@@ -49,8 +49,8 @@ const cmds = {
           "cd /var/ListViewGenerator/src/",
           "git pull",
           "docker build -t lvg .",
-          "docker stop lvg",
-          "docker rm lvg",
+          "docker stop lvg || true",
+          "docker rm lvg || true",
           "docker create --name lvg lvg",
           "cd /var/ListViewGenerator/gh-pages",
           "find . -maxdepth 1 ! -name '.' ! -name '..' ! -name '.git' ! -name 'CNAME' -exec rm -rf {} \\;",
