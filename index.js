@@ -4,6 +4,7 @@ let exec = require("shelljs").exec;
 
 webhook.start();
 
+/*
 schedule.schedule({
   name: "syncAppinventorSources",
   rule: { minute: 0 },
@@ -11,3 +12,4 @@ schedule.schedule({
     exec(webhook.cmds["/mit-cml/appinventor-sources"].join(" && "), { silent: true });
   }
 });
+*/
