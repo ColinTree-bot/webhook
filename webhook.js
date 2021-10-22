@@ -121,7 +121,7 @@ const cmds = {
   "/scify-crm": [
     "cd ~/IT-Project",
     "docker-compose pull",
-    "docker-compose restart"
+    "docker-compose up -d"
   ]
 }
 
