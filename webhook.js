@@ -119,7 +119,7 @@ const cmds = {
     "git push gitee"
   ],
   "/scify-crm": [
-    "cd ~/IT-Prject",
+    "cd ~/IT-Project",
     "docker-compose pull",
     "docker-compose restart"
   ]
