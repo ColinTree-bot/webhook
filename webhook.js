@@ -65,30 +65,6 @@ const cmds = {
         return "echo branch not accepted";
     }
   },
-  "/aix_colintree_cn": function(requestJson) {
-    if (requestJson.sender.login == "ColinTree-bot") {
-      throw "Ignore commit since it is commited by this bot";
-    }
-    let targetBranch = requestJson.ref.replace("refs/heads/", "");
-    switch (targetBranch) {
-      case "master":
-        return [
-          "cd /var/aix_colintree_cn/src",
-          "git pull",
-          "gitbook install",
-          "gitbook build",
-          "cd ../gh-pages",
-          "git pull", // ensure no commit conflict
-          "find . -maxdepth 1 ! -name '.' ! -name '..' ! -name '.git' -exec rm -rf {} \\;",
-          "mv ../src/_book/* .",
-          "git add . --all",
-          "git commit -m \"Auto-build by webhook: " + requestJson.after + "\"",
-          "git push"
-        ];
-      default:
-        return "echo branch not accepted";
-    }
-  },
   "/tinywebdb-php-vue/release": function(requestJson) {
     if (requestJson.action !== 'published') {
       return 'echo [TPV-release] ignore release action: ' + requestJson.action;
